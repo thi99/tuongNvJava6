@@ -1,0 +1,68 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{ index :: section(~{::section}) }">
+<body>
+<section style="background-color: #eeeeee;">
+    <div class="text-center container py-5" id="text-center container py-5">
+        <h4 class="mt-4 mb-5"><strong>Bestsellers</strong></h4>
+        <div class="row" id="row"></div>
+        <script type="text/javascript" >
+            window.onload = async function()
+            {
+                var products = [];
+                var innerHtml = '';
+                await $.ajax({
+                    url: '/rest/products',
+                    type: 'get',
+                    // dataType: 'Object',
+                    // data: p,
+                    success: function (data, textStatus, xhr) {
+                        products = data;
+                        console.log(products);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.log('Error in Operation');
+                    }
+                });
+                await products.map( i => {
+                    innerHtml += `
+                        <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                        <div class="bg-image hover-zoom ripple" data-mdb-ripple-color="light">
+                        <img src="${i.image}" class="w-100" />
+                        </div>
+                        <div class="card-body">
+                        <a href="" class="text-reset">
+                        <a href="/detail?id=${i.id}"><h5 class="card-title mb-3" >${i.productName}</h5></a>
+                        </a>
+                        <a href="" class="text-reset">
+                        <p>${i.category.categoryName}</p>
+                        </a>
+                        <h6 class="mb-3">
+                        <strong class="ms-2 text-danger" >${i.price}</strong>
+                    </h6>
+                    </div>
+                    </div>
+                    </div>`
+                });
+                document.getElementById('row').innerHTML = document.getElementById('row').innerHTML + innerHtml;
+            };
+            function detail(id) {
+                    $.ajax({
+                        url: '/detail?id=' + id,
+                        type: 'get',
+                        success: function (data, textStatus, xhr) {
+                            products = data;
+                            console.log(products);
+                        },
+                        error: function (xhr, textStatus, errorThrown) {
+                            console.log('Error in Operation');
+                        }
+                    });
+            }
+        </script>
+
+    </div>
+
+</section>
+</body>
+</html>

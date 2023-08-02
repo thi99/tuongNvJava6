@@ -1,0 +1,37 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{ index :: section(~{::section}) }">
+<body>
+<section class="container mt-5 mb-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="row" th:object="${product}">
+                    <div class="col-md-6">
+                        <div class="images p-3">
+                            <div class="text-center p-4"> <img id="main-image" th:src="*{image}" width="400" /> </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="product p-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center"> </div> <i class="fa fa-shopping-cart text-primary"></i>
+                            </div>
+                            <div class="mt-4 mb-3"> <span class="text-uppercase text-muted brand">[[*{category.categoryName}]]</span>
+                                <h5 class="text-uppercase">[[*{productName}]]</h5>
+                                <div class="price d-flex flex-row align-items-center"> <span class="act-price text-danger">[[*{price}]]</span>
+                                </div>
+                            </div>
+                            <p class="about"></p>
+                            <div class="sizes mt-5">
+
+                            </div>
+                            <div class="cart mt-4 align-items-center"> <button class="btn btn-danger text-uppercase mr-2 px-4">Add to cart</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+</body>
+</html>
